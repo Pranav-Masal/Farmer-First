@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Farmer-First</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="main">
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+<img src="{{ url_for('static', filename='images/logo.png') }}" height="60">
+</div>
+
+<ul class="menu">
+<li><a href="/">Home</a></li>
+<li><a href="/shop">Products</a></li>
+<li><a href="/services">Services</a></li>
+<li><a href="/contact">Contact</a></li>
+</ul>
+
+<div class="search-container">
+<input type="text" id="search" placeholder="Search products...">
+<div id="results"></div>
+</div>
+
+<ul class="user-menu">
+<li><a href="/farmer-register">Farmer Register</a></li>
+<li><a href="/profile">Profile</a></li>
+<li><a href="/logout">Logout</a></li>
+</ul>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<span class="badge">Fresh Farm Products</span>
+
+<h1>Buy Fresh Vegetables Direct From Farmers</h1>
+
+<p>Healthy organic food delivered to your home.</p>
+
+<a href="shop">
+<button class="btn">Shop Now</button>
+</a>
+
+</div>
+
+</section>
+
+
+<!-- FRESH PRODUCTS -->
+
+<section class="fresh-section">
+
+<h2 class="fresh-title">Daily Fresh Products</h2>
+
+<div class="fresh-slider">
+
+{% for f in fresh_products %}
+
+<div class="fresh-slide">
+
+<div class="box-label">New Item</div>
+
+{% if f.image %}
+<img src="{{ url_for('static', filename='uploads/' + f.image) }}">
+{% else %}
+<img src="{{ url_for('static', filename='uploads/default.png') }}">
+{% endif %}
+
+<h4>{{ f.name }}</h4>
+
+<p>
+<i class="fa-solid fa-indian-rupee-sign"></i> {{ f.price }}/kg
+</p>
+
+<p class="farmer">
+<i class="fa-solid fa-user"></i> {{ f.farmer_name }}
+</p>
+
+<p class="phone">
+<i class="fa-solid fa-phone"></i> {{ f.phone }}
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</section>
+
+
+<!-- CATEGORY -->
+
+<div class="category-box">
+
+<div class="cat active" onclick="filterProduct('all', this)">
+<i class="fa-solid fa-border-all"></i>
+<p>All</p>
+</div>
+
+<div class="cat" onclick="filterProduct('vegetable', this)">
+<i class="fa-solid fa-carrot"></i>
+<p>Vegetables</p>
+</div>
+
+<div class="cat" onclick="filterProduct('fruit', this)">
+<i class="fa-solid fa-apple-whole"></i>
+<p>Fruits</p>
+</div>
+
+<div class="cat" onclick="filterProduct('grain', this)">
+<i class="fa-solid fa-wheat-awn"></i>
+<p>Grains</p>
+</div>
+
+</div>
+
+
+<!-- FILTER -->
+
+<button id="filter-toggle">Filter ⚙️</button>
+
+<div class="filters" id="filters" style="display:none">
+
+<input type="number" id="min-price" placeholder="Min Price">
+
+<input type="number" id="max-price" placeholder="Max Price">
+
+<select id="category">
+<option value="">All Categories</option>
+<option value="vegetable">Vegetables</option>
+<option value="fruit">Fruits</option>
+<option value="grain">Grains</option>
+</select>
+
+</div>
+
+
+<!-- PRODUCTS -->
+
+<div class="product-grid" id="product-grid">
+
+{% for p in products %}
+
+<div class="product {{ p.category }} product-item" data-price="{{ p.price }}">
+
+{% if p.image %}
+<img src="{{ url_for('static', filename='uploads/' + p.image) }}">
+{% else %}
+<img src="{{ url_for('static', filename='images/default.png') }}">
+{% endif %}
+
+<h4>{{ p.name }}</h4>
+
+<p><i class="fa-solid fa-indian-rupee-sign"></i> {{ p.price }}/kg</p>
+
+<p><i class="fa-solid fa-user"></i> {{ p.farmer_name }}</p>
+
+<p><i class="fa-solid fa-phone"></i> {{ p.phone }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+<!-- LOAD MORE -->
+
+<div style="text-align:center;margin-top:30px;">
+<button class="btn" id="loadMoreBtn" onclick="loadMoreProducts()">Load More</button>
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<div class="footer-left">
+<h3>FarmerFirst</h3>
+<p>Connecting farmers directly with customers.</p>
+</div>
+
+<div class="footer-links">
+<a href="#">Dashboard</a>
+<a href="{{ url_for('farmer_show', farmer_id=1) }}">Farmers</a>
+<a href="#">Orders</a>
+<a href="{{ url_for('review') }}">Reviews</a>
+</div>
+
+<div class="footer-right">
+<p>© 2026 FarmerFirst | All Rights Reserved</p>
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* PAGE LOAD */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+/* LOAD MORE */
+
+let currentProducts = 10
+let items = document.querySelectorAll(".product-item")
+
+function showProducts(){
+for(let i=0;i<currentProducts && i<items.length;i++){
+items[i].style.display="block"
+}
+}
+
+showProducts()
+
+window.loadMoreProducts = function(){
+
+for(let i=currentProducts;i<currentProducts+6 && i<items.length;i++){
+items[i].style.display="block"
+}
+
+currentProducts += 6
+
+if(currentProducts >= items.length){
+document.getElementById("loadMoreBtn").style.display="none"
+}
+
+}
+
+/* FRESH SLIDER */
+
+let slider=document.querySelector(".fresh-slider")
+
+if(slider){
+
+setInterval(()=>{
+
+slider.scrollBy({
+left:220,
+behavior:"smooth"
+})
+
+if(slider.scrollLeft + slider.clientWidth >= slider.scrollWidth){
+slider.scrollTo({left:0})
+}
+
+},2000)
+
+}
+
+/* LIVE SEARCH */
+
+const searchInput=document.getElementById("search")
+const resultsBox=document.getElementById("results")
+
+searchInput.addEventListener("keyup",function(){
+
+let query=searchInput.value.trim()
+
+if(query===""){
+resultsBox.innerHTML=""
+return
+}
+
+fetch("/live-search?q="+query)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+resultsBox.innerHTML=""
+
+data.forEach(product=>{
+
+resultsBox.innerHTML+=`
+
+<div class="result-item">
+
+<img src="/static/uploads/${product.image}" width="50">
+
+<div>
+<h4>${product.name}</h4>
+<p>Farmer : ${product.farmer}</p>
+<p>Qty : ${product.quantity}</p>
+<p>₹${product.price}</p>
+</div>
+
+</div>
+
+`
+
+})
+
+})
+
+})
+
+})
+
+/* CATEGORY FILTER */
+
+function filterProduct(category,element){
+
+let items=document.querySelectorAll(".product-item")
+
+document.querySelectorAll(".cat").forEach(btn=>{
+btn.classList.remove("active")
+})
+
+element.classList.add("active")
+
+items.forEach(item=>{
+
+if(category==="all"){
+item.style.display="block"
+}
+else{
+
+if(item.classList.contains(category)){
+item.style.display="block"
+}else{
+item.style.display="none"
+}
+
+}
+
+})
+
+}
+
+/* FILTER PANEL */
+
+const filterToggle=document.getElementById("filter-toggle")
+const filtersDiv=document.getElementById("filters")
+const minPriceInput=document.getElementById("min-price")
+const maxPriceInput=document.getElementById("max-price")
+const categoryInput=document.getElementById("category")
+const products=document.querySelectorAll(".product-item")
+
+filterToggle.addEventListener("click",()=>{
+filtersDiv.style.display = filtersDiv.style.display==="none" ? "block":"none"
+})
+
+function applyFilters(){
+
+const minPrice=parseFloat(minPriceInput.value)||0
+const maxPrice=parseFloat(maxPriceInput.value)||Infinity
+const category=categoryInput.value
+
+products.forEach(product=>{
+
+const price=parseFloat(product.dataset.price)
+
+const matchCategory = category==="" || product.classList.contains(category)
+
+if(price>=minPrice && price<=maxPrice && matchCategory){
+product.style.display="block"
+}else{
+product.style.display="none"
+}
+
+})
+
+}
+
+minPriceInput.addEventListener("input",applyFilters)
+maxPriceInput.addEventListener("input",applyFilters)
+categoryInput.addEventListener("change",applyFilters)
+
+</script>
+
+</body>
+</html>

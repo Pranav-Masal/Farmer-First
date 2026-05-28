@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+ 
+    <title>Register form</title>
+</head>
+<body>
+     <div class="container">
+        <div class="form-box">
+            <div class="form-inp">
+                <form method="POST" >
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required><br>
+
+                    <select name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="farmer">Farmer</option>
+                        <option value="buyer">Buyer</option>
+                        <option value="supplier">Supplier</option>
+                    </select><br>
+                
+
+                    <button type="submit" class="btn">Register</button>
+                    <div class="divider">OR</div>
+                <button class="google-btn">
+                    <img src="{{ url_for('static', filename='./images/googlelogin.png') }}" alt="Google">
+                        Continue with Google
+                        </button>
+                        <div class="signup">Don't have an account?
+                            <a href="#">Sign up</a>
+                        </div>
+                            </form>
+            </div>
+            <div class="form-img">
+                <img src="{{ url_for('static', filename='./images/homepage.jpg') }}" alt="" height="780px" width="500px">
+            </div>
+
+        </div>
+    </div>
+ 
+</body>
+</html>

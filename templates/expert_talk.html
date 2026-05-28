@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Expert | Farmer First</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/expert.css') }}">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<div class="homepage">
+
+<nav>
+
+<div class="logo">
+<img src="{{ url_for('static', filename='images/logo.png') }}" height="100px">
+</div>
+
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/about">About</a></li>
+<li><a href="/contact">Contact</a></li>
+<li><a href="/services">Services</a></li>
+</ul>
+
+<ul>
+<li><a href="/register">Sign Up</a></li>
+<li><a href="/login">Login</a></li>
+</ul>
+
+</nav>
+
+</div>
+
+
+
+
+
+
+<!-- CHAT CONTAINER -->
+
+<div class="chat-container">
+
+<div class="chat-header">
+<i class="fa-solid fa-robot"></i> Ask Farming Expert
+</div>
+
+
+<div class="chat-area" id="chatArea">
+
+<div class="bot-message">
+<span>
+Hello Farmer 👨‍🌾!  
+I am your Farmer First AI Expert.  
+Ask me about farming or how to use the website.
+</span>
+</div>
+
+</div>
+
+
+
+<div class="input-area">
+
+<input id="question" placeholder="Ask your farming question...">
+
+<button onclick="askExpert()">
+<i class="fa-solid fa-paper-plane"></i>
+</button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function askExpert(){
+
+let input = document.getElementById("question")
+
+let message = input.value
+
+if(message === "") return
+
+let chat = document.getElementById("chatArea")
+
+chat.innerHTML += `
+<div class="user-message">
+<span>${message}</span>
+</div>
+`
+
+fetch("/ask_expert",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+question:message
+})
+
+})
+
+.then(res => res.json())
+
+.then(data => {
+
+chat.innerHTML += `
+<div class="bot-message">
+<span>${data.answer}</span>
+</div>
+`
+
+chat.scrollTop = chat.scrollHeight
+
+})
+
+input.value = ""
+
+}
+
+</script>
+
+</body>
+</html>

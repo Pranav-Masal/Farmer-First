@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/review.css') }}">
+<title>Give Review</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+</head>
+
+<body>
+
+<div class="review-container">
+
+<div class="review-left">
+
+<h1>Share Your Experience</h1>
+
+<p>
+Your feedback helps farmers grow better and
+helps customers trust our platform.
+</p>
+
+<i class="fa-solid fa-star" style="font-size:40px;margin-top:20px;"></i>
+
+</div>
+
+<div class="review-right">
+
+<h2>Give Your Review</h2>
+
+<form action="/submit_review" method="POST">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<textarea name="message" placeholder="Write your review" required></textarea>
+
+<button type="submit">
+<i class="fa-solid fa-paper-plane"></i>
+Submit Review
+</button>
+
+</form>
+
+<a href="{{ url_for('index') }}" class="back">
+← Back to Home
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>
+```

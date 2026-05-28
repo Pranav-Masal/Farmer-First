@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmer First - About</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg,#020617,#0f172a,#1e293b);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* NAVBAR */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      margin-top: 20px;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    header h1 {
+      background: linear-gradient(90deg,#38bdf8,#22c55e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #cbd5f5;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #22c55e;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    .hero h2 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg,#22c55e,#38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(90deg,#22c55e,#38bdf8);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #22c55e;
+    }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+      padding: 80px 0;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 20px;
+      transition: 0.4s;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .about img:hover {
+      transform: scale(1.05);
+    }
+
+    .about-text h3 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      color: #cbd5f5;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    /* TEAM */
+    .team {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .team h2 {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+    }
+
+    .team-members {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(12px);
+      padding: 30px;
+      border-radius: 20px;
+      transition: 0.4s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.04);
+      box-shadow: 0 0 40px rgba(34,197,94,0.6);
+      background: linear-gradient(120deg,transparent,rgba(34,197,94,0.2),transparent);
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #22c55e;
+      margin-bottom: 15px;
+    }
+
+    .card h4 {
+      margin-bottom: 5px;
+    }
+
+    .card p {
+      color: #94a3b8;
+    }
+
+    .social a {
+      margin: 5px;
+      color: #22c55e;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid #334155;
+      margin-top: 50px;
+      color: #94a3b8;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>Farmer First</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Empowering Farmers with Technology</h2>
+    <p>Farmer First is a smart digital platform designed to help farmers increase productivity, income, and knowledge using modern agricultural solutions.</p>
+    <button class="btn">Explore More</button>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <img src="../static/images/about.jpg" alt="">
+    <div class="about-text">
+      <h3>Who We Are</h3>
+      <p>We are a farmer-first platform focused on solving real agricultural problems using technology.</p>
+      <p>Our goal is to bring innovation, simplicity, and growth opportunities directly to farmers.</p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team">
+    <h2>Our Team</h2>
+
+    <div class="team-members">
+
+      <div class="card">
+        <img src="../static/images/ceo.jpg">
+        <h4>Pranav</h4>
+        <p>Founder & Developer</p>
+        <div class="social">
+          <a href="#">🌐</a>
+          <a href="#">💼</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://source.unsplash.com/200x200/?farmer">
+        <h4>Agriculture Expert</h4>
+        <p>Field Specialist</p>
+      </div>
+
+      <div class="card">
+        <img src="https://source.unsplash.com/200x200/?developer">
+        <h4>Tech Team</h4>
+        <p>Backend & AI</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Farmer First. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<!-- SCROLL ANIMATION -->
+<script src="https://unpkg.com/scrollreveal"></script>
+<script>
+  ScrollReveal().reveal('.hero, .about, .team, .card', {
+    delay: 200,
+    distance: '60px',
+    duration: 1000,
+    origin: 'bottom'
+  });
+</script>
+
+</body>
+</html>

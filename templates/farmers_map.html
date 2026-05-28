@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Farmers Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style>
+    *{
+      margin:0px;
+      padding:0px;
+    }
+    #map { height: 100vh; width: 100%; }
+    .popup img { width: 80px; height: 80px; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([18.5, 73.8], 12); // Center near Pune
+
+    // Map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+    }).addTo(map);
+
+    // Fetch farmers data
+    fetch("/farmers-location")
+      .then(res => res.json())
+      .then(farmers => {
+          farmers.forEach(f => {
+              const marker = L.marker([f.latitude, f.longitude]).addTo(map);
+              let productsHTML = "No products";
+
+if (f.products && f.products.length > 0) {
+    if (Array.isArray(f.products)) {
+        productsHTML = f.products.join(", ");
+    } else {
+        productsHTML = f.products;
+    }
+}
+
+marker.bindPopup(`
+  <div class="popup" style="min-width:220px">
+    <h3 style="margin-bottom:5px">${f.name}</h3>
+
+    <p><b>📞</b> ${f.phone}</p>
+    <p><b>📍</b> ${f.address}</p>
+    <p><b>🧺 Products:</b><br><br>${productsHTML}</p>
+
+    <a href="tel:${f.phone}" 
+       style="display:inline-block;
+             margin-top:8px;
+             padding:5px 10px;
+             background:#38a169;
+             color:white;
+             text-decoration:none;
+             border-radius:5px;">
+       📞 Call Now
+    </a>
+  </div>
+`);
+          });
+      });
+  </script>
+</body>
+</html>
